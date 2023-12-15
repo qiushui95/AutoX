@@ -101,7 +101,7 @@ module.exports = function (runtime, scope) {
     function images() {
     }
     if (android.os.Build.VERSION.SDK_INT >= 21) {
-        util.__assignFunctions__(runtime.images, images, ['captureScreen', 'read', 'copy', 'load', 'clip', 'pixel'])
+        util.__assignFunctions__(runtime.images, images, ['captureScreen','setPortrait','setLandscape', 'read', 'copy', 'load', 'clip', 'pixel'])
     }
     images.opencvImporter = JavaImporter(
         org.opencv.core.Point,

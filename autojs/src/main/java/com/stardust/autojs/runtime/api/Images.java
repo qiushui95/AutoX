@@ -99,6 +99,12 @@ public class Images {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public synchronized ImageWrapper captureScreen() {
+        try {
+            throw new RuntimeException();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
         ScriptRuntime.requiresApi(21);
         if (mScreenCapturer == null) {
             throw new SecurityException("No screen capture permission");
@@ -126,6 +132,23 @@ public class Images {
         return false;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void setPortrait() {
+
+        if (mScreenCapturer == null) return;
+
+        mScreenCapturer.setOrientation(ScreenCapturer.ORIENTATION_PORTRAIT);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void setLandscape() {
+
+        if (mScreenCapturer == null) return;
+
+        mScreenCapturer.setOrientation(ScreenCapturer.ORIENTATION_LANDSCAPE);
+
+    }
+
     public ImageWrapper copy(ImageWrapper image) {
         return image.clone();
     }
@@ -140,7 +163,7 @@ public class Images {
             boolean compress = bitmap.compress(compressFormat, quality, outputStream);
             outputStream.flush();
             return compress;
-        }finally {
+        } finally {
             outputStream.close();
         }
     }

@@ -101,6 +101,12 @@ public class ScreenCapturer {
         mOrientation = orientation;
         mDetectedOrientation = mContext.getResources().getConfiguration().orientation;
         refreshVirtualDisplay(mOrientation == ORIENTATION_AUTO ? mDetectedOrientation : mOrientation);
+
+        Image oldImage = mCachedImage.getAndSet(mImageReader.acquireNextImage());
+
+        if (oldImage != null) {
+            oldImage.close();
+        }
     }
 
 
